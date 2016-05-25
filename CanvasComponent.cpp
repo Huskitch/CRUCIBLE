@@ -2,11 +2,11 @@
 
 
 
-CanvasComponent::CanvasComponent()
+CRUCIBLE::CanvasComponent::CanvasComponent()
 {
 }
 
 
-CanvasComponent::~CanvasComponent()
+CRUCIBLE::CanvasComponent::~CanvasComponent()
 {
 }

@@ -1,19 +1,19 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-class FPS;
-
-class Debug
+namespace CRUCIBLE
 {
-public:
-	Debug();
-	~Debug();
+	class Debug
+	{
+	public:
+		Debug();
+		~Debug();
 
-	sf::Font font;
-	sf::Clock fpsClock;
+		sf::Font font;
+		sf::Clock fpsClock;
 
-	sf::Text DrawText(std::string string, sf::Vector2f position, uint32_t scale, sf::Color color);
-	void Draw(sf::RenderWindow *window);
-	float GetFPS(const sf::Time& time);
-};
-
+		sf::Text DrawText(std::string string, sf::Vector2f position, uint32_t scale, sf::Color color);
+		void Draw(sf::RenderWindow *window);
+		float GetFPS(const sf::Time& time);
+	};
+}

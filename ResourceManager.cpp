@@ -1,14 +1,14 @@
 #include "ResourceManager.h"
 
-ResourceManager::ResourceManager()
+CRUCIBLE::ResourceManager::ResourceManager()
 {
 }
 
-ResourceManager::~ResourceManager()
+CRUCIBLE::ResourceManager::~ResourceManager()
 {
 }
 
-void ResourceManager::loadTexture(const std::string& name, const std::string& filename)
+void CRUCIBLE::ResourceManager::loadTexture(const std::string& name, const std::string& filename)
 {
 	sf::Texture tex;
 	tex.loadFromFile(filename);
@@ -16,7 +16,7 @@ void ResourceManager::loadTexture(const std::string& name, const std::string& fi
 	textures[name] = tex;
 }
 
-sf::Texture& ResourceManager::getRef(const std::string& texture)
+sf::Texture& CRUCIBLE::ResourceManager::getRef(const std::string& texture)
 {
 	return textures.at(texture);
 }

@@ -1,8 +1,10 @@
 #pragma once
-class CanvasComponent
+namespace CRUCIBLE
 {
-public:
-	CanvasComponent();
-	~CanvasComponent();
-};
-
+	class CanvasComponent
+	{
+	public:
+		CanvasComponent();
+		~CanvasComponent();
+	};
+}

@@ -1,16 +1,16 @@
 #include "Debug.h"
 #include "FPS.h"
 
-Debug::Debug()
+CRUCIBLE::Debug::Debug()
 {
 	font.loadFromFile("resource/myriad-pro-bold.ttf");
 }
 
-Debug::~Debug()
+CRUCIBLE::Debug::~Debug()
 {
 }
 
-sf::Text Debug::DrawText(std::string string, sf::Vector2f position, uint32_t scale, sf::Color color)
+sf::Text CRUCIBLE::Debug::DrawText(std::string string, sf::Vector2f position, uint32_t scale, sf::Color color)
 {
 	sf::Text text(string, font);
 	text.setPosition(position);
@@ -19,7 +19,7 @@ sf::Text Debug::DrawText(std::string string, sf::Vector2f position, uint32_t sca
 	return text;
 }
 
-void Debug::Draw(sf::RenderWindow *window)
+void CRUCIBLE::Debug::Draw(sf::RenderWindow *window)
 {
 	float fps = GetFPS(fpsClock.restart());
 
@@ -28,7 +28,7 @@ void Debug::Draw(sf::RenderWindow *window)
 	window->draw(DrawText("FPS: " + std::to_string(fps), sf::Vector2f(15, 50), 20, sf::Color::White));
 }
 
-float Debug::GetFPS(const sf::Time& time)
+float CRUCIBLE::Debug::GetFPS(const sf::Time& time)
 {
 	return (1000000.0f / time.asMicroseconds());
 }

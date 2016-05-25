@@ -2,19 +2,21 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-class Canvas
+namespace CRUCIBLE
 {
-public:
-	Canvas();
-	~Canvas();
+	class Canvas
+	{
+	public:
+		Canvas();
+		~Canvas();
 
-	void Draw(sf::RenderWindow *renderWindow);
-	void DrawShape(sf::RenderWindow *renderWindow);
-	void Resize(sf::Vector2f size);
-	void ResizeRelative(sf::Vector2f size);
-	void SetPosition(sf::Vector2f position);
+		void Draw(sf::RenderWindow *renderWindow);
+		void DrawShape(sf::RenderWindow *renderWindow);
+		void Resize(sf::Vector2f size);
+		void ResizeRelative(sf::Vector2f size);
+		void SetPosition(sf::Vector2f position);
 
-private:
-	sf::RectangleShape container;
-};
-
+	private:
+		sf::RectangleShape container;
+	};
+}
