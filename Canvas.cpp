@@ -10,9 +10,17 @@ CRUCIBLE::Canvas::~Canvas()
 {
 }
 
+void CRUCIBLE::Canvas::AddComponent(DRAWABLE drawableComponent)
+{
+	components.push_back(drawableComponent);
+}
+
 void CRUCIBLE::Canvas::Draw(sf::RenderWindow* renderWindow)
 {
-	
+	for(DRAWABLE e : components)
+	{
+
+	}
 }
 
 void CRUCIBLE::Canvas::DrawShape(sf::RenderWindow *renderWindow)

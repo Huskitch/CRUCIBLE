@@ -11,7 +11,7 @@ namespace CRUCIBLE
 
 		sf::Text DrawText(std::string string, sf::Vector2f position, uint32_t scale, sf::Color color);
 		void Draw(sf::RenderWindow *window);
-		float GetFPS(const sf::Time& time);
+		int GetFPS(const sf::Time& time);
 
 	private:
 		sf::Font font;

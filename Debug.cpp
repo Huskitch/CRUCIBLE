@@ -28,8 +28,8 @@ void CRUCIBLE::Debug::Draw(sf::RenderWindow *window)
 	window->draw(DrawText("FPS: " + std::to_string(fps), sf::Vector2f(15, 50), 20, sf::Color::White));
 }
 
-float CRUCIBLE::Debug::GetFPS(const sf::Time& time)
+int CRUCIBLE::Debug::GetFPS(const sf::Time& time)
 {
-	return (1000000.0f / time.asMicroseconds());
+	return std::floor((1000000.0f / time.asMicroseconds()));
 }
 
