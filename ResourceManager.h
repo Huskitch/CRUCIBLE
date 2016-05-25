@@ -1,6 +1,6 @@
 #pragma once
 #include <map>
-#include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics.hpp>
 
 namespace CRUCIBLE
 {
@@ -12,12 +12,15 @@ namespace CRUCIBLE
 
 	public:
 		void loadTexture(const std::string& name, const std::string &filename);
-		sf::Texture& getRef(const std::string& texture);
+		void loadFont(const std::string& name, const std::string &filename);
+		sf::Texture& getTexRef(const std::string& texture);
+		sf::Font& getFontRef(const std::string& font);
 
 	private:
 
 
 	private:
 		std::map<std::string, sf::Texture> textures;
+		std::map<std::string, sf::Font> fonts;
 	};
 }

@@ -16,9 +16,21 @@ void CRUCIBLE::ResourceManager::loadTexture(const std::string& name, const std::
 	textures[name] = tex;
 }
 
-sf::Texture& CRUCIBLE::ResourceManager::getRef(const std::string& texture)
+void CRUCIBLE::ResourceManager::loadFont(const std::string& name, const std::string& filename)
+{
+	sf::Font font;
+	font.loadFromFile(filename);
+
+	fonts[name] = font;
+}
+
+sf::Texture& CRUCIBLE::ResourceManager::getTexRef(const std::string& texture)
 {
 	return textures.at(texture);
 }
 
+sf::Font& CRUCIBLE::ResourceManager::getFontRef(const std::string& font)
+{
+	return fonts.at(font);
+}
 
