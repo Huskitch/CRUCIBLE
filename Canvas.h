@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Drawable.h"
+#include "CanvasComponent.h"
 
 namespace CRUCIBLE
 {
@@ -16,10 +17,10 @@ namespace CRUCIBLE
 		void Resize(sf::Vector2f size);
 		void ResizeRelative(sf::Vector2f size);
 		void SetPosition(sf::Vector2f position);
-		void AddComponent(DRAWABLE drawableComponent);
+		void AddComponent(CanvasComponent &drawableComponent);
 
 	private:
 		sf::RectangleShape container;
-		std::vector<DRAWABLE> components;
+		std::vector<CanvasComponent> components;
 	};
 }
