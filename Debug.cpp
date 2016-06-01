@@ -34,74 +34,80 @@ long CRUCIBLE::Debug::GetMemory()
 
 void CRUCIBLE::Debug::GetGPUInfo()
 {
-	HRESULT hr;
-	hr = CoInitializeEx(NULL, COINIT_MULTITHREADED);
-
-	IWbemLocator *pIWbemLocator = NULL;
-	hr = CoCreateInstance(__uuidof(WbemLocator), NULL,
-		CLSCTX_INPROC_SERVER, __uuidof(IWbemLocator),
-		(LPVOID *)&pIWbemLocator);
-
-	BSTR bstrServer = SysAllocString(L"\\\\.\\root\\cimv2");
-	IWbemServices *pIWbemServices;
-	hr = pIWbemLocator->ConnectServer(bstrServer, NULL, NULL, 0L, 0L, NULL,
-		NULL, &pIWbemServices);
-
-	hr = CoSetProxyBlanket(pIWbemServices, RPC_C_AUTHN_WINNT,
-		RPC_C_AUTHZ_NONE, NULL, RPC_C_AUTHN_LEVEL_CALL,
-		RPC_C_IMP_LEVEL_IMPERSONATE, NULL,
-		EOAC_DEFAULT);
-
-	BSTR bstrWQL = SysAllocString(L"WQL");
-	BSTR bstrPath = SysAllocString(L"select * from Win32_VideoController");
-	IEnumWbemClassObject* pEnum;
-	hr = pIWbemServices->ExecQuery(bstrWQL, bstrPath, WBEM_FLAG_FORWARD_ONLY, NULL, &pEnum);
-
-	IWbemClassObject* pObj = NULL;
-	ULONG uReturned;
-	VARIANT var;
-	hr = pEnum->Next(WBEM_INFINITE, 1, &pObj, &uReturned);
-
-	if (uReturned)
+	try
 	{
-		hr = pObj->Get(L"Name", 0, &var, NULL, NULL);
-		if (SUCCEEDED(hr))
+		HRESULT hr;
+		hr = CoInitializeEx(NULL, COINIT_MULTITHREADED);
+
+		IWbemLocator *pIWbemLocator = NULL;
+		hr = CoCreateInstance(__uuidof(WbemLocator), NULL,
+			CLSCTX_INPROC_SERVER, __uuidof(IWbemLocator),
+			(LPVOID *)&pIWbemLocator);
+
+		BSTR bstrServer = SysAllocString(L"\\\\.\\root\\cimv2");
+		IWbemServices *pIWbemServices;
+		hr = pIWbemLocator->ConnectServer(bstrServer, NULL, NULL, 0L, 0L, NULL,
+			NULL, &pIWbemServices);
+
+		hr = CoSetProxyBlanket(pIWbemServices, RPC_C_AUTHN_WINNT,
+			RPC_C_AUTHZ_NONE, NULL, RPC_C_AUTHN_LEVEL_CALL,
+			RPC_C_IMP_LEVEL_IMPERSONATE, NULL,
+			EOAC_DEFAULT);
+
+		BSTR bstrWQL = SysAllocString(L"WQL");
+		BSTR bstrPath = SysAllocString(L"select * from Win32_VideoController");
+		IEnumWbemClassObject* pEnum;
+		hr = pIWbemServices->ExecQuery(bstrWQL, bstrPath, WBEM_FLAG_FORWARD_ONLY, NULL, &pEnum);
+
+		IWbemClassObject* pObj = NULL;
+		ULONG uReturned;
+		VARIANT var;
+		hr = pEnum->Next(WBEM_INFINITE, 1, &pObj, &uReturned);
+
+		if (uReturned)
 		{
-			char sString[256];
-			WideCharToMultiByte(CP_ACP, 0, var.bstrVal, -1, sString,
-			sizeof(sString), NULL, NULL);
+			hr = pObj->Get(L"Name", 0, &var, NULL, NULL);
+			if (SUCCEEDED(hr))
+			{
+				char sString[256];
+				WideCharToMultiByte(CP_ACP, 0, var.bstrVal, -1, sString,
+					sizeof(sString), NULL, NULL);
 
-			gpuName = sString;
+				gpuName = sString;
+			}
+
+			hr = pObj->Get(L"AdapterRAM", 0, &var, NULL, NULL);
+			if (SUCCEEDED(hr))
+			{
+				char str[MAX_PATH];
+				sprintf_s(str, "%ld", std::abs((var.lVal / (1024 * 1024))));
+
+				adapterRAM = str;
+			}
+
+			hr = pObj->Get(L"VideoModeDescription", 0, &var, NULL, NULL);
+			if (SUCCEEDED(hr))
+			{
+				char sString[256];
+				WideCharToMultiByte(CP_ACP, 0, var.bstrVal, -1, sString,
+
+					sizeof(sString), NULL, NULL);
+				videoModeDesc = sString;
+			}
+
+			hr = pObj->Get(L"DriverVersion", 0, &var, NULL, NULL);
+			if (SUCCEEDED(hr))
+			{
+				char sString[256];
+				WideCharToMultiByte(CP_ACP, 0, var.bstrVal, -1, sString,
+
+					sizeof(sString), NULL, NULL);
+				driverVer = sString;
+			}
 		}
-
-		hr = pObj->Get(L"AdapterRAM", 0, &var, NULL, NULL);
-		if (SUCCEEDED(hr))
-		{
-			char str[MAX_PATH];
-			sprintf_s(str, "%ld", std::abs((var.lVal / (1024 * 1024))));
-
-			adapterRAM = str;
-		}
-
-		hr = pObj->Get(L"VideoModeDescription", 0, &var, NULL, NULL);
-		if (SUCCEEDED(hr))
-		{
-			char sString[256];
-			WideCharToMultiByte(CP_ACP, 0, var.bstrVal, -1, sString,
-
-				sizeof(sString), NULL, NULL);
-			videoModeDesc = sString;
-		}
-
-		hr = pObj->Get(L"DriverVersion", 0, &var, NULL, NULL);
-		if (SUCCEEDED(hr))
-		{
-			char sString[256];
-			WideCharToMultiByte(CP_ACP, 0, var.bstrVal, -1, sString,
-
-				sizeof(sString), NULL, NULL);
-			driverVer = sString;
-		}
+	} catch(...)
+	{
+		
 	}
 }
 
