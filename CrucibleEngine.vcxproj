@@ -144,6 +144,8 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimatedSprite.h" />
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="Canvas.h" />
     <ClInclude Include="CanvasComponent.h" />
     <ClInclude Include="Debug.h" />
@@ -152,6 +154,8 @@
     <ClInclude Include="ResourceManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AnimatedSprite.cpp" />
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Canvas.cpp" />
     <ClCompile Include="CanvasComponent.cpp" />
     <ClCompile Include="Debug.cpp" />
