@@ -148,6 +148,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Canvas.h" />
     <ClInclude Include="CanvasComponent.h" />
+    <ClInclude Include="Screen.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="FPS.h" />
     <ClInclude Include="Drawable.h" />
